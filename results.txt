@@ -1,0 +1,11 @@
+Athena Raya, Samuel Sanchez, Regie Daquioag, Evelyn Murillo
+Mean: 18846.9 Newtons
+Maximum Coupon: 21065 Newtons
+Minimum Coupon: 17563 Newtons
+Variance: 1.41793e+06 Newtons
+Standard Deviation: 1190.77 Newtons
+Mean: 18846.9 Newtons
+Maximum Coupon: 20100 Newtons
+Minimum Coupon: 17324 Newtons
+Variance: 894686 Newtons
+Standard Deviation: 945.878 Newtons

@@ -21,22 +21,22 @@ double mean(vector<int> v, int n);
 // Precondition: Needs a vector and the element count 
 // Postcondition: Returns the mean
 //********************************************************************************
-void minimumVec(vector<int> vec, int n);
+void minimumVec(vector<int> vec, int n, ofstream& fout);
 // Summary: Caluclates the minimum idexed value
 // Precondition: Needs a vector and the element number
 // Postcondition: Prints the minimum value
 //********************************************************************************
-void maximumVec(vector<int> vec, int n);
+void maximumVec(vector<int> vec, int n, ofstream& fout);
 // Summary: Calculates the maximum indexed value
 // Precondition: Needs a vector and an element
 // Postcondition: Prints out the max
 //********************************************************************************
-void variance(vector<int> v, int n);
+void variance(vector<int> v, int n, ofstream& fout);
 //Summary: Determines the variance of a list of numbers
 //Precondition: Needs a vector along with the number of elements
 //Postcondition: Prints out the variance
 //********************************************************************************
-void standardDev(vector<int> v, int n);
+void standardDev(vector<int> v, int n, ofstream& fout);
 //Summary: Determines the standard deviation of a list of numbers
 //Precondition: Needs a vector and a the number of elements in the vector
 //Postcondition: Prints out standard deviation
@@ -46,13 +46,15 @@ int main()
 {
     int iterator;
     ifstream fin1, fin2;
+    ofstream fout1;
     vector<int> steel; // One vector for steel and another for graphite results
     vector<int> graphite;
     int element1 = 0, element2 = 0; // Keeps track of the number of values in each data text 
     fin1.open("data1.txt"); // Steel data
     fin2.open("data2.txt"); // Graphite data
+    fout1.open("results.txt"); // Results
     
-    if(fin1.fail() || fin2.fail())
+    if(fin1.fail() || fin2.fail() || fout1.fail())
     {
         cout << "Error on opening files" << endl;
         exit(1);
@@ -72,21 +74,27 @@ int main()
         element2++;
     }
     
+    fout1 << "Athena Raya, Samuel Sanchez, Regie Daquioag, Evelyn Murillo" << endl;
+    
     cout << "Mean: "<< mean(steel, element1) << " Newtons" << endl;
-    maximumVec(steel, element1);
-    minimumVec(steel, element1);
-    variance(steel, element1);
-    standardDev(steel, element1);
+    fout1 << "Mean: "<< mean(steel, element1) << " Newtons" << endl;
+    maximumVec(steel, element1, fout1);
+    minimumVec(steel, element1, fout1);
+    variance(steel, element1, fout1);
+    standardDev(steel, element1, fout1);
+    
     cout << endl;
 
     cout << "Mean: "<< mean(graphite, element2) << " Newtons" << endl;
-    maximumVec(graphite, element2);
-    minimumVec(graphite, element2);    
-    variance(graphite, element2);
-    standardDev(graphite, element1);
+    fout1 << "Mean: "<< mean(steel, element1) << " Newtons" << endl;
+    maximumVec(graphite, element2, fout1);
+    minimumVec(graphite, element2, fout1);    
+    variance(graphite, element2, fout1);
+    standardDev(graphite, element1, fout1);
     
     fin1.close(); // Input files closed
-    fin2.close();
+    fin2.close(); 
+    fout1.close(); // Output file closed
     return 0;
 }
 
@@ -102,7 +110,7 @@ double mean(vector<int> v, int n) // Will be called in stdDev() and Variance()
     return mean;
 }
 
-void maximumVec(vector<int> vec, int n)
+void maximumVec(vector<int> vec, int n, ofstream& fout)
 {
     int max = vec[0]; // Set to first value
     for(int ix = 1; ix < n; ix++)
@@ -113,10 +121,11 @@ void maximumVec(vector<int> vec, int n)
         }
     }
     cout << "Maximum Coupon: " << max << " Newtons"<<  endl;
+    fout << "Maximum Coupon: " << max << " Newtons"<<  endl;
     return;
 }
 
-void minimumVec(vector<int> vec, int n)
+void minimumVec(vector<int> vec, int n, ofstream& fout)
 {
     int min = vec[0]; // Set to first value
     for(int ix = 1; ix < n; ix++)
@@ -127,10 +136,11 @@ void minimumVec(vector<int> vec, int n)
         }
     }
     cout << "Minimum Coupon: " << min << " Newtons"<< endl;
+    fout << "Minimum Coupon: " << min << " Newtons"<< endl;
     return;
 }
 
-void variance(vector<int> v, int n)
+void variance(vector<int> v, int n, ofstream& fout)
 {
     double sum = 0;
     double meanVal = mean(v, n); 
@@ -142,10 +152,11 @@ void variance(vector<int> v, int n)
     }
     variance = (sum/n); // Sum is then divided by number of values
     cout << "Variance: " << variance << " Newtons"<< endl;
+    fout << "Variance: " << variance << " Newtons"<< endl;
     return;
 }
 
-void standardDev(vector<int> v, int n)
+void standardDev(vector<int> v, int n, ofstream& fout)
 {
     int sum = 0;
     double meanVal = mean(v, n);
@@ -157,5 +168,6 @@ void standardDev(vector<int> v, int n)
     }
     stdDev = sqrt(sum/n); // Same as variance, except square root of variance is being taken
     cout << "Standard Deviation: "<< stdDev << " Newtons" << endl;
+    fout << "Standard Deviation: "<< stdDev << " Newtons" << endl;
     return;
 }
